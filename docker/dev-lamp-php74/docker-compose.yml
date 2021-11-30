@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  webserver:
+    build:
+      dockerfile: ./docker/webserver/Dockerfile
+      context: .
+      args:
+        APP_HOST: "${APP_HOST}"
+    container_name: "${APP_HOST}-webserver"
+    restart: "always"
+    ports:
+      - "80:80"
+      - "443:443"      
+    links: 
+      - mysql
+    volumes: 
+      - ./src:/var/www/html
+      - ./docker/data/logs:/var/log/apache2
+  mysql:
+    build: ./docker/mysql
+    container_name: "${APP_HOST}-mysql"
+    restart: "always"
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./docker/data/mysql:/var/lib/mysql
+      - ./docker/data/logs:/var/log/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: "${APP_HOST}-phpmyadmin"
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 512M
+    ports:
+      - "8001:80"
+    volumes: 
+      - /sessions
