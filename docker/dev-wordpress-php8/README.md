@@ -10,3 +10,9 @@ docker-compose up -d
 ````
 docker exec -it localhost-webserver bash
 ````
+
+### Install Wordpress
+
+````
+./install.sh
+````
