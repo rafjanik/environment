@@ -17,6 +17,7 @@ services:
     volumes:
       - ./wordpress:/var/www/html
       - ./docker/data/logs:/var/log/apache2
+      - ./src/plugins/demo-plugin:/var/www/html/wp-content/plugins/demo-plugin:ro
     environment:
       APP_HOST: "${APP_HOST}"
       MYSQL_DATABASE: ${MYSQL_DATABASE}

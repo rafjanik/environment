@@ -39,9 +39,9 @@ wp plugin install --activate "regenerate-thumbnails" \
   --path=.
 
 # Activate plugin
-#wp plugin activate "demo-plugin" \
-#  --allow-root \
-#  --path=.
+wp plugin activate "demo-plugin" \
+  --allow-root \
+  --path=.
 
 # Activate theme
 #wp theme activate "demo-theme" \
