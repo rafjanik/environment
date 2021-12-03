@@ -18,6 +18,7 @@ services:
       - ./wordpress:/var/www/html
       - ./docker/data/logs:/var/log/apache2
       - ./src/plugins/demo-plugin:/var/www/html/wp-content/plugins/demo-plugin:ro
+      - ./src/themes/demo-theme:/var/www/html/wp-content/themes/demo-theme:ro
     environment:
       APP_HOST: "${APP_HOST}"
       MYSQL_DATABASE: ${MYSQL_DATABASE}
