@@ -1,0 +1,8 @@
+.idea
+
+docker/data/logs/*
+!docker/data/logs/.gitkeep
+docker/data/mysql/*
+!docker/data/mysql/.gitkeep
+
+.env
