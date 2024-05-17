@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Virtualbox
 apt-get install virtualbox -y
 
