@@ -27,6 +27,9 @@ newgrp docker
 # fix problem: "ERROR: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock ..."
 sudo chown $USER /var/run/docker.sock
 
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+
 docker run hello-world
 docker --version
 docker compose version
