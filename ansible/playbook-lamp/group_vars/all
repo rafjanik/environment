@@ -1,0 +1,16 @@
+vps_webserver: apache2
+vps_php_version: 8.1
+vps_php_additional_mods: []
+vps_vhosts:
+  - server_name: ""
+    db_name: lamp
+    db_username: lamp
+    db_password: 12345
+    wp_admin: admin
+    wp_admin_password: 123fjfjjf
+    wp_admin_email: costam@example.com
+    wp_title: Moj blog
+    state: present
+
+vps_wp_cli_path: /usr/local/bin/wp
+vps_wp_cli_url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar

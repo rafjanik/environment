@@ -1,0 +1,35 @@
+- name: install apache2
+  apt:
+    name: apache2
+    state: latest
+    update_cache: yes
+
+- name: add managed vhost config files
+  template:
+    src: apache2-vhost.j2
+    dest: /etc/apache2/sites-available/{{ item.server_name }}.conf
+    force: true
+    mode: 0644
+  when: item.state|default('present') != 'absent'
+  loop: "{{ vps_vhosts }}"
+  # notify:
+  #   - validate apache2 configuration and restart apache2
+
+- name: enable apache2 vhosts
+  file:
+    src: /etc/apache2/sites-available/{{ item.server_name }}.conf
+    dest: /etc/apache2/sites-enabled/{{ item.server_name }}.conf
+    state: link
+  when: item.state|default('present') != 'absent'
+  loop: "{{ vps_vhosts }}"
+  # notify:
+  #   - validate apache2 configuration and restart apache2
+
+- name: cleanup managed vhost config files
+  file:
+    path: "{{ item[0] }}{ item[1].server_name }}.conf"
+    state: absent
+  when: item[1].state|default('present') == 'absent'
+  loop: "{{ [ '/etc/apache2/sites-available', '/etc/apache2/sites-enabled/']|product(vps_vhosts)|list }}"
+#   notify:
+#     - validate apache2 configuration

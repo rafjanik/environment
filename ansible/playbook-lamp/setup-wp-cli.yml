@@ -1,0 +1,18 @@
+- name: check if wp-cli exists
+  stat:
+    path: "{{ vps_wp_cli_path }}"
+  register: wpcli_exists
+
+- name: updating wp-cli
+  shell: "{{ vps_wp_cli_path }} cli update --yes"
+  when: wpcli_exists.stat.exists
+
+- name: install WP-CLI
+  get_url:
+    url: "{{ vps_wp_cli_url }}"
+    dest: "{{ vps_wp_cli_path }}"
+    force: true
+    owner: root
+    group: root
+    mode: 755
+  when: not wpcli_exists.stat.exists

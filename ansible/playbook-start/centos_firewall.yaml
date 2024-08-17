@@ -1,0 +1,13 @@
+# - name: Install python3-firewall on CentOS
+#   package:
+#     name: python3
+#     state: present
+
+# - name: permit traffic in default zone
+#   firewalld:
+#     port: "{{ item }}/tcp"
+#     permanent: yes
+#     state: enabled
+#     immediate: true
+#   loop: "{{ open_ports }}"
+#   tags: firewall
