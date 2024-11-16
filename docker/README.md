@@ -36,3 +36,17 @@ docker exec -it local-mysql bash
 `
 docker run -it --rm -v %cd%:/app -w /app  -p 5000:5000 -p 3000:3000 node:16 bash
 `
+
+## Portainer
+
+`
+docker run -d \
+  -p 9443:9443 \
+  --name portainer \
+  --restart unless-stopped \
+  -v data:/data \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  portainer/portainer-ce:latest
+`
+
+https://localhost:9443
