@@ -12,6 +12,9 @@ snap install code --classic
 snap install phpstorm --classic
 snap install pycharm-community --classic
 
+# Bat
+ln -s /usr/bin/batcat ~/.local/bin/bat
+
 # Double Commander
 add-apt-repository ppa:alexx2000/doublecmd
 apt update
