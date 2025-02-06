@@ -1,0 +1,70 @@
+services:
+  mariadb:
+    image: mariadb:lts
+    container_name: "${APP_HOST}-mariadb"
+    restart: "always"
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./infrastructure/mariadb/data:/var/lib/mysql
+      - ./infrastructure/mariadb/logs:/var/log/mysql
+    environment:
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+
+  postgres:
+    image: postgres:17.2
+    container_name: "${APP_HOST}-postgres"
+    restart: "always"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./infrastructure/postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+  redis:
+    image: redis
+    container_name: "${APP_HOST}-redis"
+    restart: "always"
+    ports:
+      - 6379:6379
+    volumes:
+      - ./infrastructure/redis/data:/data
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: "${APP_HOST}-rabbitmq"
+    restart: "always"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  nginx:
+    build:
+      dockerfile: ./infrastructure/php84-nginx/Dockerfile
+      context: .
+    container_name: "${APP_HOST}-nginx"
+    restart: "always"
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mariadb
+      - postgres
+      - redis
+      - rabbitmq
+    links: 
+      - mariadb
+      - postgres
+      - redis
+      - rabbitmq
+    volumes:
+      - ./src:/var/www
+      - ./infrastructure/php84-nginx/logs:/var/log/nginx

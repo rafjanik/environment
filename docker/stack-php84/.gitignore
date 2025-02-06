@@ -1,0 +1,10 @@
+backups/*
+!backups/.gitkeep
+
+infrastructure/mariadb/data/*
+infrastructure/mariadb/logs/*
+infrastructure/pgadmin/data/*
+infrastructure/php84-nginx/logs/*
+infrastructure/portainer/data/*
+infrastructure/mapostgresriadb/data/*
+infrastructure/redis/data/*
