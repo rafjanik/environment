@@ -25,7 +25,7 @@ shell:
 	docker exec -it $(APP_HOST)-nginx sh
 	
 frontend-build:
-	docker run -it -v ./src:/app -w /app node:22-alpine npm run build
+	docker run -it --rm -v ./src:/app -w /app node:22-alpine npm run build
 
 # --- Backup and restore ---
 

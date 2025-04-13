@@ -1,4 +1,4 @@
-backups/*
+backups
 !backups/.gitkeep
 
 infrastructure/mariadb/data/*
@@ -8,3 +8,5 @@ infrastructure/php84-nginx/logs/*
 infrastructure/portainer/data/*
 infrastructure/mapostgresriadb/data/*
 infrastructure/redis/data/*
+
+src
